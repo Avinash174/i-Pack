@@ -13,7 +13,6 @@ class PlansScreen extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF051124) : const Color(0xFFF8FAFC),
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkSurface : AppColors.ipackBlue,
         foregroundColor: AppColors.lightOnPrimary,

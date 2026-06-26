@@ -28,7 +28,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF051124) : const Color(0xFFF8FAFC),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
@@ -125,7 +124,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           end: Alignment.bottomCenter,
           colors: [
             isDark ? AppColors.darkSurface : AppColors.ipackBlue,
-            isDark ? const Color(0xFF051124) : AppColors.ipackBlue.withValues(alpha: 0.85),
+            isDark ? AppColors.darkBackground : AppColors.ipackBlue.withValues(alpha: 0.85),
           ],
         ),
       ),

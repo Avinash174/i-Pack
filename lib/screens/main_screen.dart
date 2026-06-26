@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/navigation_provider.dart';
@@ -29,7 +28,6 @@ class MainScreen extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF051124) : const Color(0xFFF8FAFC),
       body: Row(
         children: [
           _buildSidebar(context, ref, currentNavItem, isDark),
@@ -70,10 +68,7 @@ class MainScreen extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF051124) : const Color(0xFFF8FAFC),
-      extendBody: true, // Let screens flow under the floating navigation bar
       body: SafeArea(
-        bottom: false,
         child: _getCurrentScreen(currentNavItem, context, ref),
       ),
       bottomNavigationBar: _buildBottomNavigationBar(context, currentNavItem, ref, isDark),
@@ -84,96 +79,98 @@ class MainScreen extends ConsumerWidget {
     return Container(
       width: 260,
       decoration: BoxDecoration(
-        color: isDark ? AppColors.darkSurface : Colors.white,
         border: Border(
           right: BorderSide(
             color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey[200]!,
           ),
         ),
       ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.ipackOrange.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(12),
+      child: Material(
+        color: isDark ? AppColors.darkSurface : Colors.white,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.ipackOrange.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.shield,
+                      color: AppColors.ipackOrange,
+                      size: 24,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.shield,
-                    color: AppColors.ipackOrange,
-                    size: 24,
+                  const SizedBox(width: 12),
+                  Text(
+                    'I-PACK',
+                    style: TextStyle(
+                      fontFamily: 'SF Pro Display',
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      color: isDark ? Colors.white : AppColors.ipackBlue,
+                      letterSpacing: 0.8,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'I-PACK',
-                  style: TextStyle(
-                    fontFamily: 'SF Pro Display',
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
-                    color: isDark ? Colors.white : AppColors.ipackBlue,
-                    letterSpacing: 0.8,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const Divider(height: 1, thickness: 0.5),
-          const SizedBox(height: 20),
-          _buildSidebarItem(
-            context,
-            ref,
-            NavItem.home,
-            Icons.grid_view_rounded,
-            'Home',
-            currentItem == NavItem.home,
-            isDark,
-          ),
-          _buildSidebarItem(
-            context,
-            ref,
-            NavItem.policies,
-            Icons.verified_user_outlined,
-            'My Policies',
-            currentItem == NavItem.policies,
-            isDark,
-          ),
-          _buildSidebarItem(
-            context,
-            ref,
-            NavItem.claims,
-            Icons.analytics_outlined,
-            'My Claims',
-            currentItem == NavItem.claims,
-            isDark,
-          ),
-          _buildSidebarItem(
-            context,
-            ref,
-            NavItem.notifications,
-            Icons.notifications_none_rounded,
-            'Notifications',
-            currentItem == NavItem.notifications,
-            isDark,
-          ),
-          _buildSidebarItem(
-            context,
-            ref,
-            NavItem.profile,
-            Icons.person_outline_rounded,
-            'Profile',
-            currentItem == NavItem.profile,
-            isDark,
-          ),
-          const Spacer(),
-          _buildSidebarProfile(context, ref, isDark),
-        ],
+            const Divider(height: 1, thickness: 0.5),
+            const SizedBox(height: 20),
+            _buildSidebarItem(
+              context,
+              ref,
+              NavItem.home,
+              Icons.grid_view_rounded,
+              'Home',
+              currentItem == NavItem.home,
+              isDark,
+            ),
+            _buildSidebarItem(
+              context,
+              ref,
+              NavItem.policies,
+              Icons.verified_user_outlined,
+              'My Policies',
+              currentItem == NavItem.policies,
+              isDark,
+            ),
+            _buildSidebarItem(
+              context,
+              ref,
+              NavItem.claims,
+              Icons.analytics_outlined,
+              'My Claims',
+              currentItem == NavItem.claims,
+              isDark,
+            ),
+            _buildSidebarItem(
+              context,
+              ref,
+              NavItem.notifications,
+              Icons.notifications_none_rounded,
+              'Notifications',
+              currentItem == NavItem.notifications,
+              isDark,
+            ),
+            _buildSidebarItem(
+              context,
+              ref,
+              NavItem.profile,
+              Icons.person_outline_rounded,
+              'Profile',
+              currentItem == NavItem.profile,
+              isDark,
+            ),
+            const Spacer(),
+            _buildSidebarProfile(context, ref, isDark),
+          ],
+        ),
       ),
     );
   }
@@ -334,40 +331,25 @@ class MainScreen extends ConsumerWidget {
   }
 
   Widget _buildBottomNavigationBar(BuildContext context, NavItem currentItem, WidgetRef ref, bool isDark) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 28, top: 4),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isDark 
-                  ? AppColors.darkSurface.withValues(alpha: 0.85) 
-                  : Colors.white.withValues(alpha: 0.85),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey[200]!,
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.05),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: NavItem.values.map((item) {
-                  final isSelected = item == currentItem;
-                  return _buildBottomNavItem(context, item, isSelected, ref, isDark);
-                }).toList(),
-              ),
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.darkSurface : Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey[200]!,
+            width: 1.0,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: NavItem.values.map((item) {
+              final isSelected = item == currentItem;
+              return _buildBottomNavItem(context, item, isSelected, ref, isDark);
+            }).toList(),
           ),
         ),
       ),

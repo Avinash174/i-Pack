@@ -29,8 +29,8 @@ class AppColors {
   static const Color lightOnSurface = Color(0xFF111827);
 
   // Dark theme colors
-  static const Color darkBackground = Color(0xFF090D16);
-  static const Color darkSurface = Color(0xFF131B2E);
+  static const Color darkBackground = Color(0xFF0F172A); // Slate 900
+  static const Color darkSurface = Color(0xFF1E293B); // Slate 800 for cards
   static const Color darkOnPrimary = Color(0xFFFFFFFF);
   static const Color darkOnSecondary = Color(0xFFFFFFFF);
   static const Color darkOnBackground = Color(0xFFF8FAFC);
@@ -97,7 +97,7 @@ class MyApp extends ConsumerWidget {
           onSecondary: AppColors.darkOnSecondary,
           onSurface: AppColors.darkOnSurface,
         ),
-        scaffoldBackgroundColor: const Color(0xFF051124),
+        scaffoldBackgroundColor: AppColors.darkBackground,
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.darkSurface,
           foregroundColor: AppColors.darkOnBackground,

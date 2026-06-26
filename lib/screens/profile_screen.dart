@@ -15,7 +15,7 @@ class ProfileScreen extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF051124) : const Color(0xFFF8FAFC),
+      backgroundColor: Colors.transparent,
       appBar: Responsive.isMobile(context)
           ? AppBar(
               backgroundColor: isDark ? AppColors.darkSurface : AppColors.primary,
@@ -289,7 +289,6 @@ class ProfileScreen extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: cardBg,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey[200]!,
@@ -302,20 +301,26 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ],
       ),
-      child: Column(
-        children: List.generate(children.length, (index) {
-          if (index == children.length - 1) return children[index];
-          return Column(
-            children: [
-              children[index],
-              Divider(
-                height: 1,
-                thickness: 0.5,
-                color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey[100],
-              ),
-            ],
-          );
-        }),
+      child: Material(
+        color: cardBg,
+        type: MaterialType.canvas,
+        clipBehavior: Clip.antiAlias,
+        borderRadius: BorderRadius.circular(23),
+        child: Column(
+          children: List.generate(children.length, (index) {
+            if (index == children.length - 1) return children[index];
+            return Column(
+              children: [
+                children[index],
+                Divider(
+                  height: 1,
+                  thickness: 0.5,
+                  color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey[100],
+                ),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }

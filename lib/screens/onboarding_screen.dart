@@ -59,7 +59,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF051124) : Colors.white,
       body: SafeArea(
         child: Column(
           children: [

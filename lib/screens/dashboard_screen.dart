@@ -15,49 +15,46 @@ class DashboardScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: Responsive.isMobile(context) ? 20 : 28,
-          vertical: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildGreetingHeader(context, ref, isDark),
-            const SizedBox(height: 24),
-            _buildSearchBar(context, isDark),
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(
+        horizontal: Responsive.isMobile(context) ? 20 : 28,
+        vertical: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildGreetingHeader(context, ref, isDark),
+          const SizedBox(height: 24),
+          _buildSearchBar(context, isDark),
+          const SizedBox(height: 28),
+          _buildProtectionScoreAndValueChart(context, isDark),
+          const SizedBox(height: 28),
+          _buildQuickActionsRow(context, ref, isDark),
+          const SizedBox(height: 32),
+          _buildUpcomingRenewals(context, isDark),
+          const SizedBox(height: 32),
+          if (Responsive.isDesktop(context))
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: _buildActivePolicies(context, ref, isDark),
+                ),
+                const SizedBox(width: 24),
+                Expanded(
+                  flex: 2,
+                  child: _buildRecentClaims(context, ref, isDark),
+                ),
+              ],
+            )
+          else ...[
+            _buildActivePolicies(context, ref, isDark),
             const SizedBox(height: 28),
-            _buildProtectionScoreAndValueChart(context, isDark),
-            const SizedBox(height: 28),
-            _buildQuickActionsRow(context, ref, isDark),
-            const SizedBox(height: 32),
-            _buildUpcomingRenewals(context, isDark),
-            const SizedBox(height: 32),
-            if (Responsive.isDesktop(context))
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: _buildActivePolicies(context, ref, isDark),
-                  ),
-                  const SizedBox(width: 24),
-                  Expanded(
-                    flex: 2,
-                    child: _buildRecentClaims(context, ref, isDark),
-                  ),
-                ],
-              )
-            else ...[
-              _buildActivePolicies(context, ref, isDark),
-              const SizedBox(height: 28),
-              _buildRecentClaims(context, ref, isDark),
-            ],
-            const SizedBox(height: 100), // Space to scroll past the bottom bar
+            _buildRecentClaims(context, ref, isDark),
           ],
-        ),
+          const SizedBox(height: 100), // Space to scroll past the bottom bar
+        ],
       ),
     );
   }

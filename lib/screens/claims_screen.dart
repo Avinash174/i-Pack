@@ -181,7 +181,6 @@ class _ClaimsScreenState extends ConsumerState<ClaimsScreen> {
               return Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: isDark ? AppColors.darkSurface : Colors.white,
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
                     color: isSelected
@@ -197,8 +196,13 @@ class _ClaimsScreenState extends ConsumerState<ClaimsScreen> {
                     ),
                   ],
                 ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(20),
+                child: Material(
+                  color: isDark ? AppColors.darkSurface : Colors.white,
+                  type: MaterialType.canvas,
+                  clipBehavior: Clip.antiAlias,
+                  borderRadius: BorderRadius.circular(23),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(20),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -278,7 +282,8 @@ class _ClaimsScreenState extends ConsumerState<ClaimsScreen> {
                     }
                   },
                 ),
-              );
+              ),
+            );
             },
           ),
         ],
