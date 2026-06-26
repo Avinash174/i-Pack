@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers/theme_provider.dart';
-import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -9,24 +9,32 @@ void main() {
 
 // Brand Colors
 class AppColors {
-  static const Color ipackBlue = Color(0xFF0B2D5C);
-  static const Color ipackOrange = Color(0xFFF58220);
+  // Brand color aliases matching the user's color system
+  static const Color ipackBlue = Color(0xFF42C8B7); // Primary Teal (#42C8B7)
+  static const Color ipackOrange = Color(0xFF80E2D6); // Secondary/Dark Mode Teal (#80E2D6)
+  
+  static const Color primary = Color(0xFF42C8B7);
+  static const Color secondary = Color(0xFF80E2D6);
+  static const Color accent = Color(0xFF06B6D4);
+  static const Color success = Color(0xFF22C55E);
+  static const Color warning = Color(0xFFF59E0B);
+  static const Color danger = Color(0xFFEF4444);
 
   // Light theme colors
-  static const Color lightBackground = Color(0xFFFFFFFF);
-  static const Color lightSurface = Color(0xFFF5F5F5);
+  static const Color lightBackground = Color(0xFFF8FAFC);
+  static const Color lightSurface = Color(0xFFFFFFFF);
   static const Color lightOnPrimary = Color(0xFFFFFFFF);
   static const Color lightOnSecondary = Color(0xFFFFFFFF);
-  static const Color lightOnBackground = Color(0xFF0B2D5C);
-  static const Color lightOnSurface = Color(0xFF0B2D5C);
+  static const Color lightOnBackground = Color(0xFF111827);
+  static const Color lightOnSurface = Color(0xFF111827);
 
   // Dark theme colors
-  static const Color darkBackground = Color(0xFF0B2D5C);
-  static const Color darkSurface = Color(0xFF1A3A6C);
-  static const Color darkOnPrimary = Color(0xFF0B2D5C);
-  static const Color darkOnSecondary = Color(0xFF0B2D5C);
-  static const Color darkOnBackground = Color(0xFFFFFFFF);
-  static const Color darkOnSurface = Color(0xFFFFFFFF);
+  static const Color darkBackground = Color(0xFF090D16);
+  static const Color darkSurface = Color(0xFF131B2E);
+  static const Color darkOnPrimary = Color(0xFFFFFFFF);
+  static const Color darkOnSecondary = Color(0xFFFFFFFF);
+  static const Color darkOnBackground = Color(0xFFF8FAFC);
+  static const Color darkOnSurface = Color(0xFFF8FAFC);
 }
 
 class MyApp extends ConsumerWidget {
@@ -37,9 +45,11 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeConverterProvider);
     
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'I-PACK',
       theme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.light,
         colorScheme: ColorScheme.light(
           primary: AppColors.ipackBlue,
           secondary: AppColors.ipackOrange,
@@ -48,7 +58,7 @@ class MyApp extends ConsumerWidget {
           onSecondary: AppColors.lightOnSecondary,
           onSurface: AppColors.lightOnSurface,
         ),
-        scaffoldBackgroundColor: AppColors.lightBackground,
+        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.ipackBlue,
           foregroundColor: AppColors.lightOnPrimary,
@@ -78,6 +88,7 @@ class MyApp extends ConsumerWidget {
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.dark,
         colorScheme: ColorScheme.dark(
           primary: AppColors.ipackOrange,
           secondary: AppColors.ipackOrange,
@@ -86,7 +97,7 @@ class MyApp extends ConsumerWidget {
           onSecondary: AppColors.darkOnSecondary,
           onSurface: AppColors.darkOnSurface,
         ),
-        scaffoldBackgroundColor: AppColors.darkBackground,
+        scaffoldBackgroundColor: const Color(0xFF051124),
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.darkSurface,
           foregroundColor: AppColors.darkOnBackground,
@@ -115,7 +126,7 @@ class MyApp extends ConsumerWidget {
         ),
       ),
       themeMode: themeMode,
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
